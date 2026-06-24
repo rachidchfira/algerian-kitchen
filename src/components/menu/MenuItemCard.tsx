@@ -97,7 +97,7 @@ export function MenuItemCard({ item }: { item: MenuItem }) {
                     className={`inline-flex items-center gap-1.5 rounded-full border px-3 py-2 text-xs font-semibold transition-all active:scale-95 cursor-pointer ${
                       active
                         ? "border-primary bg-primary text-primary-foreground"
-                        : "border-gold/40 bg-secondary text-foreground hover:border-gold hover:bg-accent"
+                        : "border-primary/50 bg-background text-primary hover:bg-primary/10 hover:border-primary"
                     }`}
                   >
                     {active ? (
@@ -105,10 +105,10 @@ export function MenuItemCard({ item }: { item: MenuItem }) {
                         {line.qty}
                       </span>
                     ) : (
-                      <Plus className="h-3.5 w-3.5 text-gold" />
+                      <Plus className="h-3.5 w-3.5 text-primary" />
                     )}
                     <span>{optLabel}</span>
-                    <span className={active ? "font-bold" : "font-bold text-gold"}>
+                    <span className={active ? "font-bold" : "font-bold text-gold-ink"}>
                       {formatK(opt.price)}
                     </span>
                   </button>
