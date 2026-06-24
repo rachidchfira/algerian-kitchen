@@ -290,11 +290,42 @@
   animation: marquee 35s linear infinite;
 }
 
+@keyframes shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+.animate-shimmer {
+  background-image: linear-gradient(
+    110deg,
+    oklch(0.72 0.11 78) 45%,
+    oklch(0.92 0.08 80) 50%,
+    oklch(0.72 0.11 78) 55%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 2.5s infinite linear;
+}
+
+.card-glow {
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.card-glow:hover {
+  box-shadow: 0 12px 32px -8px oklch(0.72 0.11 78 / 0.25);
+  border-color: oklch(0.72 0.11 78 / 0.45);
+  transform: translateY(-3px);
+}
+
 @media (prefers-reduced-motion: reduce) {
   .ak-enter,
   .ak-reveal,
   .ak-bob,
-  .animate-marquee {
+  .animate-marquee,
+  .animate-shimmer {
     animation: none !important;
     transition: none !important;
     opacity: 1 !important;

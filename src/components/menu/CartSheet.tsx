@@ -313,7 +313,7 @@ export function CartSheet({
               </div>
 
               <Button
-                variant="gold"
+                variant="shimmer"
                 size="xl"
                 className="w-full cursor-pointer"
                 onClick={orderViaZalo}

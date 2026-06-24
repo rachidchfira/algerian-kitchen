@@ -95,7 +95,7 @@ export function HeritageSection() {
             return (
               <div
                 key={idx}
-                className="group p-5 rounded-2xl border border-border/70 bg-card shadow-[var(--shadow-card)] hover:shadow-md transition-all duration-300 hover:-translate-y-0.5"
+                className="group p-5 rounded-2xl border border-border/70 bg-card shadow-[var(--shadow-card)] card-glow"
               >
                 <div className="mb-3.5 flex h-10 w-10 items-center justify-center rounded-xl bg-secondary text-primary group-hover:scale-105 transition-transform duration-300">
                   {item.icon}

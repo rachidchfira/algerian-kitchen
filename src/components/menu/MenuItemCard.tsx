@@ -34,7 +34,7 @@ export function MenuItemCard({ item }: { item: MenuItem }) {
   }
 
   return (
-    <article className="group flex gap-4 rounded-2xl border border-border/70 bg-card p-3 shadow-[var(--shadow-card)] transition-colors duration-300 sm:p-4">
+    <article className="group flex gap-4 rounded-2xl border border-border/70 bg-card p-3 shadow-[var(--shadow-card)] sm:p-4 card-glow">
       <div className="relative h-24 w-24 shrink-0 overflow-hidden rounded-xl sm:h-28 sm:w-28">
         <img
           src={item.image}

@@ -99,7 +99,7 @@ export function Hero({ onOrder }: { onOrder: () => void }) {
           className="ak-enter mt-8 flex w-full max-w-xs flex-col gap-3"
           style={{ animationDelay: "0.46s" }}
         >
-          <Button variant="gold" size="xl" className="w-full cursor-pointer" onClick={onOrder}>
+          <Button variant="shimmer" size="xl" className="w-full cursor-pointer" onClick={onOrder}>
             <ShoppingBag className="h-5 w-5" />
             {t.startOrder}
           </Button>

@@ -125,7 +125,7 @@ export function ReviewsSection() {
             return (
               <div
                 key={idx}
-                className="relative p-6 rounded-2xl border border-border/70 bg-card shadow-[var(--shadow-card)] hover:border-gold/30 transition-all duration-300 flex flex-col justify-between"
+                className="relative p-6 rounded-2xl border border-border/70 bg-card shadow-[var(--shadow-card)] flex flex-col justify-between card-glow"
               >
                 <div>
                   {/* Stars */}
