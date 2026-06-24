@@ -75,7 +75,7 @@ function Index() {
                   </div>
                   <h2 className="mt-3 font-display text-3xl font-bold text-primary">{catTitle}</h2>
                   <p className="mt-1 font-serif text-xl text-muted-foreground" dir="rtl">
-                    {category.arabic}
+                    {category.titleAr}
                   </p>
                 </div>
 
