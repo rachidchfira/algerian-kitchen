@@ -87,8 +87,12 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         content: "Authentic Algerian & Arabic cuisine, delivered fresh in Ho Chi Minh City.",
       },
       { property: "og:type", content: "website" },
+      { property: "og:image", content: "https://algerian-kitchen.vercel.app/og-image.jpg" },
+      { property: "og:image:width", content: "1200" },
+      { property: "og:image:height", content: "800" },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:title", content: "The Algerian Kitchen" },
+      { name: "twitter:image", content: "https://algerian-kitchen.vercel.app/og-image.jpg" },
     ],
     links: [
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
