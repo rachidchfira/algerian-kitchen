@@ -275,10 +275,26 @@
   animation: ak-bob 2.4s ease-in-out infinite;
 }
 
+@keyframes marquee {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+.animate-marquee {
+  display: flex;
+  width: max-content;
+  animation: marquee 35s linear infinite;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .ak-enter,
   .ak-reveal,
-  .ak-bob {
+  .ak-bob,
+  .animate-marquee {
     animation: none !important;
     transition: none !important;
     opacity: 1 !important;

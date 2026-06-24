@@ -17,6 +17,7 @@ import { Header } from "@/components/menu/Header";
 import { HeritageSection } from "@/components/menu/HeritageSection";
 import { FaqSection } from "@/components/menu/FaqSection";
 import { ReviewsSection } from "@/components/menu/ReviewsSection";
+import { InfiniteMarquee } from "@/components/menu/Marquee";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -50,6 +51,9 @@ function Index() {
 
         {/* Hero Banner */}
         <Hero onOrder={() => setCartOpen(true)} />
+
+        {/* Infinite Marquee */}
+        <InfiniteMarquee />
 
         {/* Category Navigation */}
         <CategoryNav categories={MENU} />
