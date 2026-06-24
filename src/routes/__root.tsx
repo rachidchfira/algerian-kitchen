@@ -11,6 +11,8 @@ import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
+import { LanguageProvider } from "../lib/LanguageContext";
+import { ThemeProvider } from "../lib/ThemeContext";
 
 function NotFoundComponent() {
   return (
@@ -78,10 +80,16 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { title: "The Algerian Kitchen" },
-      { name: "description", content: "Authentic Algerian & Arabic cuisine, delivered fresh in Ho Chi Minh City." },
+      {
+        name: "description",
+        content: "Authentic Algerian & Arabic cuisine, delivered fresh in Ho Chi Minh City.",
+      },
       { name: "author", content: "The Algerian Kitchen" },
       { property: "og:title", content: "The Algerian Kitchen" },
-      { property: "og:description", content: "Authentic Algerian & Arabic cuisine, delivered fresh in Ho Chi Minh City." },
+      {
+        property: "og:description",
+        content: "Authentic Algerian & Arabic cuisine, delivered fresh in Ho Chi Minh City.",
+      },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:title", content: "The Algerian Kitchen" },
@@ -124,8 +132,12 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
-      <Outlet />
+      <ThemeProvider>
+        <LanguageProvider>
+          {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
+          <Outlet />
+        </LanguageProvider>
+      </ThemeProvider>
     </QueryClientProvider>
   );
 }

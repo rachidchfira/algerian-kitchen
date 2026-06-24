@@ -4,8 +4,46 @@ import heroImg from "@/assets/hero.jpg";
 import { AlgerianFlag } from "@/components/menu/AlgerianFlag";
 import { Button } from "@/components/ui/button";
 import { RESTAURANT } from "@/data/menu";
+import { useLanguage } from "@/lib/LanguageContext";
 
 export function Hero({ onOrder }: { onOrder: () => void }) {
+  const { language, t } = useLanguage();
+
+  const heroSubtitle =
+    language === "vi"
+      ? "Món ăn Algeria chuẩn vị nhà làm — hầm chậm, không đông lạnh, giao tận nơi nóng hổi."
+      : language === "ar"
+        ? "أطباق جزائرية كلاسيكية مطبوخة في المنزل — مطهية ببطء، غير مجمدة، وتصلك ساخنة حتى باب بيتك."
+        : "Home-cooked Algerian classics — slow-simmered, never frozen, and delivered warm to your door.";
+
+  const heroTitle =
+    language === "ar" ? (
+      <>
+        المطبخ
+        <br />
+        الجزائري
+      </>
+    ) : language === "vi" ? (
+      <>
+        Bếp Ăn
+        <br />
+        Algeria
+      </>
+    ) : (
+      <>
+        The Algerian
+        <br />
+        Kitchen
+      </>
+    );
+
+  const proudlyText =
+    language === "vi"
+      ? "Hương vị Algeria đích thực · جزائري"
+      : language === "ar"
+        ? "فخر المطبخ الجزائري · جزائري"
+        : "Proudly Algerian · جزائري";
+
   return (
     <header className="relative isolate overflow-hidden">
       <img
@@ -14,7 +52,6 @@ export function Hero({ onOrder }: { onOrder: () => void }) {
         aria-hidden="true"
         width={1024}
         height={1536}
-        fetchPriority="high"
         className="absolute inset-0 h-full w-full object-cover"
       />
       <div className="absolute inset-0 bg-[oklch(0.18_0.025_160_/_0.72)]" />
@@ -30,14 +67,14 @@ export function Hero({ onOrder }: { onOrder: () => void }) {
           className="ak-enter mb-4 inline-flex items-center gap-2 rounded-full border border-gold/40 bg-[oklch(1_0_0_/_0.06)] px-4 py-1.5 text-xs font-medium uppercase tracking-[0.2em] text-gold backdrop-blur-sm"
           style={{ animationDelay: "0.12s" }}
         >
-          100% Halal · {RESTAURANT.city}
+          {t.halalTag}
         </span>
 
         <p
           className="ak-enter mb-2 inline-flex items-center gap-2 text-[0.7rem] font-semibold uppercase tracking-[0.3em] text-[oklch(0.92_0.02_84)]"
           style={{ animationDelay: "0.18s" }}
         >
-          Proudly Algerian · جزائري
+          {proudlyText}
         </p>
 
         <div className="ak-enter gold-rule w-40 max-w-full" style={{ animationDelay: "0.24s" }}>
@@ -48,32 +85,29 @@ export function Hero({ onOrder }: { onOrder: () => void }) {
           className="ak-enter mt-4 font-display text-5xl font-bold leading-[1.05] text-[oklch(0.97_0.014_84)] sm:text-6xl"
           style={{ animationDelay: "0.3s" }}
         >
-          The Algerian
-          <br />
-          Kitchen
+          {heroTitle}
         </h1>
 
         <p
           className="ak-enter mt-4 max-w-md font-serif text-xl leading-snug text-[oklch(0.92_0.02_84)]"
           style={{ animationDelay: "0.38s" }}
         >
-          Home-cooked Algerian classics — slow-simmered, never frozen, and
-          delivered warm to your door.
+          {heroSubtitle}
         </p>
 
         <div
           className="ak-enter mt-8 flex w-full max-w-xs flex-col gap-3"
           style={{ animationDelay: "0.46s" }}
         >
-          <Button variant="gold" size="xl" className="w-full" onClick={onOrder}>
+          <Button variant="gold" size="xl" className="w-full cursor-pointer" onClick={onOrder}>
             <ShoppingBag className="h-5 w-5" />
-            Start your order
+            {t.startOrder}
           </Button>
           <a
             href="#menu"
             className="rounded-md py-1 text-sm font-medium uppercase tracking-[0.15em] text-[oklch(0.92_0.02_84)] underline-offset-4 hover:underline"
           >
-            See the full menu
+            {t.seeFullMenu}
           </a>
         </div>
 
@@ -82,10 +116,16 @@ export function Hero({ onOrder }: { onOrder: () => void }) {
           style={{ animationDelay: "0.54s" }}
         >
           <span className="inline-flex items-center gap-1.5">
-            <Clock className="h-4 w-4 text-gold" aria-hidden="true" /> {RESTAURANT.hours}
+            <Clock className="h-4 w-4 text-gold" aria-hidden="true" />{" "}
+            {language === "ar" ? RESTAURANT.hoursAr : RESTAURANT.hours}
           </span>
           <span className="inline-flex items-center gap-1.5">
-            <MapPin className="h-4 w-4 text-gold" aria-hidden="true" /> {RESTAURANT.city}
+            <MapPin className="h-4 w-4 text-gold" aria-hidden="true" />{" "}
+            {language === "vi"
+              ? RESTAURANT.cityVi
+              : language === "ar"
+                ? RESTAURANT.cityAr
+                : RESTAURANT.city}
           </span>
         </div>
 

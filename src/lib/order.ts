@@ -11,20 +11,45 @@ export function formatK(thousands: number): string {
   return `${thousands}k`;
 }
 
-export function buildOrderMessage(lines: CartLine[], total: number, note?: string): string {
+export interface DeliveryDetails {
+  name: string;
+  phone: string;
+  address: string;
+  time: string;
+}
+
+export function buildOrderMessage(
+  lines: CartLine[],
+  total: number,
+  delivery?: DeliveryDetails,
+  note?: string,
+): string {
   const parts: string[] = [];
-  parts.push(`🍽️ New order — ${RESTAURANT.name}`);
+  parts.push(`🍽️ New Order — ${RESTAURANT.name}`);
   parts.push("");
+
+  if (delivery && (delivery.name || delivery.phone || delivery.address)) {
+    parts.push("👤 CUSTOMER DETAILS:");
+    if (delivery.name.trim()) parts.push(`• Name: ${delivery.name.trim()}`);
+    if (delivery.phone.trim()) parts.push(`• Phone: ${delivery.phone.trim()}`);
+    if (delivery.address.trim()) parts.push(`• Address: ${delivery.address.trim()}`);
+    if (delivery.time) parts.push(`• Preferred Time: ${delivery.time}`);
+    parts.push("");
+  }
+
+  parts.push("🛒 ITEMS ORDERED:");
   for (const line of lines) {
     const label = line.optionLabel ? `${line.name} (${line.optionLabel})` : line.name;
     parts.push(`• ${line.qty}× ${label} — ${formatVnd(line.qty * line.price)}`);
   }
   parts.push("");
-  parts.push(`Total: ${formatVnd(total)}`);
+  parts.push(`💰 TOTAL AMOUNT: ${formatVnd(total)}`);
+
   if (note && note.trim()) {
     parts.push("");
-    parts.push(`Note: ${note.trim()}`);
+    parts.push(`✍️ NOTE: ${note.trim()}`);
   }
+
   parts.push("");
   parts.push("Sent from the online menu 🌙");
   return parts.join("\n");

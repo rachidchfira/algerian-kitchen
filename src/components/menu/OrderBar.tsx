@@ -2,9 +2,12 @@ import { ShoppingBag } from "lucide-react";
 
 import { useCart } from "@/lib/cart";
 import { formatVnd } from "@/lib/order";
+import { useLanguage } from "@/lib/LanguageContext";
 
 export function OrderBar({ onOpen }: { onOpen: () => void }) {
   const { count, total } = useCart();
+  const { t } = useLanguage();
+
   if (count === 0) return null;
 
   return (
@@ -12,7 +15,7 @@ export function OrderBar({ onOpen }: { onOpen: () => void }) {
       <button
         type="button"
         onClick={onOpen}
-        className="pointer-events-auto mx-auto flex w-full max-w-lg items-center justify-between gap-4 rounded-2xl bg-primary px-5 py-4 text-primary-foreground shadow-[var(--shadow-soft)] transition-transform active:scale-[0.99]"
+        className="pointer-events-auto mx-auto flex w-full max-w-lg items-center justify-between gap-4 rounded-2xl bg-primary px-5 py-4 text-primary-foreground shadow-[var(--shadow-soft)] transition-transform active:scale-[0.99] cursor-pointer"
       >
         <span className="flex items-center gap-3">
           <span className="relative grid h-9 w-9 place-items-center rounded-full bg-[oklch(1_0_0_/_0.12)]">
@@ -21,7 +24,7 @@ export function OrderBar({ onOpen }: { onOpen: () => void }) {
               {count}
             </span>
           </span>
-          <span className="font-display text-base font-semibold">View Order</span>
+          <span className="font-display text-base font-semibold">{t.viewOrder}</span>
         </span>
         <span className="font-display text-lg font-semibold">{formatVnd(total)}</span>
       </button>

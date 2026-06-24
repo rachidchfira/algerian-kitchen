@@ -4,13 +4,24 @@ import { toast } from "sonner";
 import type { MenuItem } from "@/data/menu";
 import { useCart } from "@/lib/cart";
 import { formatK, formatVnd } from "@/lib/order";
+import { useLanguage } from "@/lib/LanguageContext";
 import { QuantityStepper } from "./QuantityStepper";
 
 export function MenuItemCard({ item }: { item: MenuItem }) {
   const { lines, add, increment, decrement } = useCart();
+  const { language, t } = useLanguage();
 
   const singleKey = item.id;
   const singleLine = lines.find((l) => l.key === singleKey);
+
+  const displayName = language === "vi" ? item.nameVi : item.name;
+  const displayDesc =
+    language === "vi"
+      ? item.descriptionVi
+      : language === "ar"
+        ? item.descriptionAr
+        : item.description;
+  const displayNote = language === "vi" ? item.noteVi : language === "ar" ? item.noteAr : item.note;
 
   function addSingle() {
     add({
@@ -19,15 +30,15 @@ export function MenuItemCard({ item }: { item: MenuItem }) {
       name: item.name,
       price: item.price!,
     });
-    toast.success(`${item.name} added`);
+    toast.success(`${displayName} ${t.addedToast}`);
   }
 
   return (
-    <article className="group flex gap-4 rounded-2xl border border-border/70 bg-card p-3 shadow-[var(--shadow-card)] transition-shadow sm:p-4">
+    <article className="group flex gap-4 rounded-2xl border border-border/70 bg-card p-3 shadow-[var(--shadow-card)] transition-colors duration-300 sm:p-4">
       <div className="relative h-24 w-24 shrink-0 overflow-hidden rounded-xl sm:h-28 sm:w-28">
         <img
           src={item.image}
-          alt={item.name}
+          alt={displayName}
           width={1024}
           height={1024}
           loading="lazy"
@@ -38,7 +49,7 @@ export function MenuItemCard({ item }: { item: MenuItem }) {
       <div className="flex min-w-0 flex-1 flex-col">
         <div className="flex items-baseline justify-between gap-2">
           <h3 className="truncate font-display text-lg font-semibold text-foreground">
-            {item.name}
+            {displayName}
           </h3>
           {item.price !== undefined && (
             <span className="shrink-0 font-display text-lg font-semibold text-gold">
@@ -51,12 +62,12 @@ export function MenuItemCard({ item }: { item: MenuItem }) {
         </span>
 
         <p className="mt-1.5 line-clamp-3 text-[13px] leading-snug text-muted-foreground">
-          {item.description}
+          {displayDesc}
         </p>
 
-        {item.note && (
+        {displayNote && (
           <p className="mt-1.5 text-[11px] font-medium uppercase tracking-wide text-gold">
-            {item.note}
+            {displayNote}
           </p>
         )}
 
@@ -67,6 +78,8 @@ export function MenuItemCard({ item }: { item: MenuItem }) {
                 const key = `${item.id}:${opt.id}`;
                 const line = lines.find((l) => l.key === key);
                 const active = line && line.qty > 0;
+                const optLabel =
+                  language === "vi" ? opt.labelVi : language === "ar" ? opt.labelAr : opt.label;
                 return (
                   <button
                     key={opt.id}
@@ -79,9 +92,9 @@ export function MenuItemCard({ item }: { item: MenuItem }) {
                         optionLabel: opt.label,
                         price: opt.price,
                       });
-                      toast.success(`${item.name} · ${opt.label} added`);
+                      toast.success(`${displayName} · ${optLabel} ${t.addedToast}`);
                     }}
-                    className={`inline-flex items-center gap-1.5 rounded-full border px-3 py-2 text-xs font-semibold transition-colors active:scale-95 ${
+                    className={`inline-flex items-center gap-1.5 rounded-full border px-3 py-2 text-xs font-semibold transition-all active:scale-95 cursor-pointer ${
                       active
                         ? "border-primary bg-primary text-primary-foreground"
                         : "border-gold/40 bg-secondary text-foreground hover:border-gold hover:bg-accent"
@@ -94,7 +107,7 @@ export function MenuItemCard({ item }: { item: MenuItem }) {
                     ) : (
                       <Plus className="h-3.5 w-3.5 text-gold" />
                     )}
-                    <span>{opt.label}</span>
+                    <span>{optLabel}</span>
                     <span className={active ? "font-bold" : "font-bold text-gold"}>
                       {formatK(opt.price)}
                     </span>
@@ -113,9 +126,9 @@ export function MenuItemCard({ item }: { item: MenuItem }) {
             <button
               type="button"
               onClick={addSingle}
-              className="inline-flex items-center gap-1.5 rounded-full bg-primary px-4 py-2 text-xs font-semibold text-primary-foreground transition-colors hover:brightness-110 active:scale-95"
+              className="inline-flex items-center gap-1.5 rounded-full bg-primary px-4 py-2 text-xs font-semibold text-primary-foreground transition-all hover:brightness-110 active:scale-95 cursor-pointer"
             >
-              <Plus className="h-3.5 w-3.5" /> Add · {formatVnd(item.price!)}
+              <Plus className="h-3.5 w-3.5" /> {t.addButton} · {formatVnd(item.price!)}
             </button>
           )}
         </div>
